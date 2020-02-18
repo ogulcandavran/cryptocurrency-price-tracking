@@ -3,21 +3,26 @@ import { dummy } from "../dummy";
 import { connect } from "react-redux";
 import { dummyDataCreator } from "../actions";
 import Table from './Table';
+import Pagination from "./Pagination";
 
 
 
 
 function App(props) {
-const[count, setCount] = useState(0);
+const[pageNumberForApiCall, setPageNumberForApiCall] = useState(1);
 
+const changePageNumberForApiCall = (num) => {
+  setPageNumberForApiCall((num - 1) * 100 + 1);
+}
 
 if (process.env.NODE_ENV !== 'production') {
   const {whyDidYouUpdate} = require('why-did-you-update')
   whyDidYouUpdate(React)
 }
-
-  props.dummyDataCreator(dummy);
-
+console.log(pageNumberForApiCall)
+   props.dummyDataCreator(dummy); 
+ 
+   /* useEffect(() => {props.dummyDataCreator(pageNumberForApiCall)}, [pageNumberForApiCall])  */
 
 
     /* useEffect(() => {
@@ -33,7 +38,13 @@ if (process.env.NODE_ENV !== 'production') {
       .then(res => console.log(res));
   }, []);  
   */
-  return <div><Table /></div>;
+  return (
+  <div>
+    <Table />
+    
+  <Pagination changePageNumberForApiCall={changePageNumberForApiCall}/>
+  </div>
+  );
 }
 
 export default connect(null, { dummyDataCreator })(App);

@@ -3,13 +3,8 @@ import { connect } from "react-redux";
 import {useState, useEffect} from 'react';
 import {sortCoins} from '../actions'
 
-import HeadingName from "./HeadingName";
-import HeadingPrice from "./HeadingPrice";
-import HeadingVolume from "./HeadingVolume";
-import HeadingChange from "./HeadingChange";
-import HeadingSupply from "./HeadingSupply";
-import HeadingMarketCap from "./HeadingMarketCap";
 import TableBodyRenderer from "./TableBodyRenderer";
+import Headings from './Headings'
 
 function Table({ dummyData, sortCoins }) {
   const[sortParam, setSortParam] = useState('');
@@ -22,25 +17,28 @@ function Table({ dummyData, sortCoins }) {
     sortCoins(sortParam);
   }, [sortParam])
 
-  
+  if(Object.entries(dummyData).length === 0 && dummyData.constructor === Object){
+    return <div>Geliyom</div>
+  }else {
   return (
     <div style={{ width: "100%" }}>
       <table>
         <tbody>
           <tr>
             <th>#</th>
-            <HeadingName />
-            <HeadingMarketCap />
-            <HeadingPrice />
-            <HeadingVolume />
-            <HeadingSupply />
-            <HeadingChange sortParamChange={sortParamChange} sortParam={sortParam}/>
+            <Headings sortParamChange={sortParamChange} sortParam={sortParam} title='Name' ascParameterString='name_asc' descParameterString='name_desc'/>
+            <Headings sortParamChange={sortParamChange} sortParam={sortParam} title='Market Cap' ascParameterString='market_cap_asc' descParameterString='market_cap_desc'/>
+            <Headings sortParamChange={sortParamChange} sortParam={sortParam} title='Price' ascParameterString='price_asc' descParameterString='price_desc'/>
+            <Headings sortParamChange={sortParamChange} sortParam={sortParam} title='Volume (24h)' ascParameterString='volume_24h_asc' descParameterString='volume_24h_desc'/>
+            <Headings sortParamChange={sortParamChange} sortParam={sortParam} title='Circulating Supply' ascParameterString='circulating_supply_asc' descParameterString='circulating_supply_desc'/>
+            <Headings sortParamChange={sortParamChange} sortParam={sortParam} title='Change (24h)' ascParameterString='percent_change_24h_asc' descParameterString='percent_change_24h_desc'/>
           </tr>
           <TableBodyRenderer freshData={dummyData} />
         </tbody>
       </table>
     </div>
   );
+}
 }
 
 function mapStateToProps(state) {

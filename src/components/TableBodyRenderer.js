@@ -1,6 +1,6 @@
 import React from "react";
 
- function TableBodyRenderer({ freshData }) {
+function TableBodyRenderer({ freshData }) {
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD"
@@ -11,7 +11,7 @@ import React from "react";
         <td>{row.cmc_rank}</td>
         <td>{row.name}</td>
         <td>{formatter.format(row.quote.USD.market_cap)}</td>
-        <td>{formatter.format(row.quote.USD.price.toFixed(2))}</td>
+        <td>${row.quote.USD.price.toFixed(4)}</td>
         <td>{formatter.format(row.quote.USD.volume_24h.toFixed(2))}</td>
         <td>{row.circulating_supply.toFixed(2)}</td>
         <td
@@ -25,4 +25,4 @@ import React from "react";
     );
   });
 }
-export default React.memo(TableBodyRenderer)
+export default React.memo(TableBodyRenderer);
