@@ -1,0 +1,28 @@
+import React from "react";
+
+ function TableBodyRenderer({ freshData }) {
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD"
+  });
+  return freshData.map((row, index) => {
+    return (
+      <tr key={index}>
+        <td>{row.cmc_rank}</td>
+        <td>{row.name}</td>
+        <td>{formatter.format(row.quote.USD.market_cap)}</td>
+        <td>{formatter.format(row.quote.USD.price.toFixed(2))}</td>
+        <td>{formatter.format(row.quote.USD.volume_24h.toFixed(2))}</td>
+        <td>{row.circulating_supply.toFixed(2)}</td>
+        <td
+          style={{
+            color: row.quote.USD.percent_change_24h < 0 ? "red" : "green"
+          }}
+        >
+          {row.quote.USD.percent_change_24h.toFixed(2)} %
+        </td>
+      </tr>
+    );
+  });
+}
+export default React.memo(TableBodyRenderer)
