@@ -6,7 +6,7 @@ import {sortCoins} from '../actions'
 import TableBodyRenderer from "./TableBodyRenderer";
 import Headings from './Headings'
 
-function Table({ dummyData, sortCoins }) {
+function Table({ dummyData, sortCoins, changeIdForCoinDetail  }) {
   const[sortParam, setSortParam] = useState('');
 
   const sortParamChange = param => {
@@ -33,7 +33,7 @@ function Table({ dummyData, sortCoins }) {
             <Headings sortParamChange={sortParamChange} sortParam={sortParam} title='Circulating Supply' ascParameterString='circulating_supply_asc' descParameterString='circulating_supply_desc'/>
             <Headings sortParamChange={sortParamChange} sortParam={sortParam} title='Change (24h)' ascParameterString='percent_change_24h_asc' descParameterString='percent_change_24h_desc'/>
           </tr>
-          <TableBodyRenderer freshData={dummyData} />
+          <TableBodyRenderer freshData={dummyData} changeIdForCoinDetail={changeIdForCoinDetail} />
         </tbody>
       </table>
     </div>

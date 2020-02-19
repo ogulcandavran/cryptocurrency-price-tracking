@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import dummy from './dummy'
+import dummy from './dummy';
+import coinDetailReducer from './coinDetailReducer'
 
 export default combineReducers({
-  dummyData: dummy
+  dummyData: dummy,
+  coinDetail: coinDetailReducer
 });

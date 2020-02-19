@@ -1,6 +1,6 @@
 import React from "react";
 
-function TableBodyRenderer({ freshData }) {
+function TableBodyRenderer({ freshData,changeIdForCoinDetail }) {
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD"
@@ -9,7 +9,7 @@ function TableBodyRenderer({ freshData }) {
     return (
       <tr key={index}>
         <td>{row.cmc_rank}</td>
-        <td>{row.name}</td>
+        <td onClick={() => changeIdForCoinDetail(row.id)}>{row.name}</td>
         <td>{formatter.format(row.quote.USD.market_cap)}</td>
         <td>${row.quote.USD.price.toFixed(4)}</td>
         <td>{formatter.format(row.quote.USD.volume_24h.toFixed(2))}</td>

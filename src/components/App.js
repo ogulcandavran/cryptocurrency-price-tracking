@@ -1,31 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { dummy } from "../dummy";
 import { connect } from "react-redux";
-import { dummyDataCreator } from "../actions";
-import Table from './Table';
+import { BrowserRouter, Route, Link } from "react-router-dom";
+
+import { dummyDataCreator, fetchCoinDetails } from "../actions";
+import Table from "./Table";
 import Pagination from "./Pagination";
-
-
-
+import CoinDetail from "./CoinDetail";
 
 function App(props) {
-const[pageNumberForApiCall, setPageNumberForApiCall] = useState(1);
+  const [pageNumberForApiCall, setPageNumberForApiCall] = useState(1);
+  const [showCoinDetail, setShowCoinDetail] = useState(0);
 
-const changePageNumberForApiCall = (num) => {
-  setPageNumberForApiCall((num - 1) * 100 + 1);
-}
+  const changePageNumberForApiCall = num => {
+    setPageNumberForApiCall((num - 1) * 100 + 1);
+  };
 
-if (process.env.NODE_ENV !== 'production') {
-  const {whyDidYouUpdate} = require('why-did-you-update')
-  whyDidYouUpdate(React)
-}
-console.log(pageNumberForApiCall)
-   props.dummyDataCreator(dummy); 
- 
-   /* useEffect(() => {props.dummyDataCreator(pageNumberForApiCall)}, [pageNumberForApiCall])  */
+  const changeIdForCoinDetail = id => {
+    setShowCoinDetail(id);
+  };
 
+  if (process.env.NODE_ENV !== "production") {
+    const { whyDidYouUpdate } = require("why-did-you-update");
+    whyDidYouUpdate(React);
+  }
+  console.log(pageNumberForApiCall);
+  props.dummyDataCreator(dummy);
 
-    /* useEffect(() => {
+  /* useEffect(() => {props.dummyDataCreator(pageNumberForApiCall)}, [pageNumberForApiCall])  */
+  /* useEffect(() => {if(showCoinDetail){ props.fetchCoinDetails(showCoinDetail)} }, [showCoinDetail])   */
+
+  /* useEffect(() => {
     fetch(
       "https://cors-anywhere.herokuapp.com/https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=100&convert=USD&sort=price&sort_dir=desc",{
         headers:{
@@ -38,13 +43,30 @@ console.log(pageNumberForApiCall)
       .then(res => console.log(res));
   }, []);  
   */
-  return (
-  <div>
-    <Table />
-    
-  <Pagination changePageNumberForApiCall={changePageNumberForApiCall}/>
-  </div>
-  );
+  if (!showCoinDetail) {
+    return (
+      <div>
+        {/* <div>
+    <BrowserRouter>
+    <Route
+  path='/' exact
+  render={(props) => <Pagination  changePageNumberForApiCall={changePageNumberForApiCall}/>}
+/>
+<Route
+  path='/' exact
+  render={(props) => <Table  changeIdForCoinDetail={changeIdForCoinDetail}/>}
+/> */}
+        <Pagination changePageNumberForApiCall={changePageNumberForApiCall} />
+        <Table changeIdForCoinDetail={changeIdForCoinDetail} />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <CoinDetail showCoinDetail={showCoinDetail} />
+      </div>
+    );
+  }
 }
 
-export default connect(null, { dummyDataCreator })(App);
+export default connect(null, { dummyDataCreator, fetchCoinDetails })(App);
