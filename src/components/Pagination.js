@@ -1,7 +1,7 @@
 import React from 'react'
 import EachPage from './EachPage';
 
-export default function Pagination({changePageNumberForApiCall}) {
+ function Pagination({changePageNumberForApiCall}) {
   return (
     <div style={{display:'flex'}}>
       <EachPage changePageNumberForApiCall={changePageNumberForApiCall} pageNumberToShow={1}/>
@@ -11,3 +11,5 @@ export default function Pagination({changePageNumberForApiCall}) {
     </div>
   )
 }
+
+export default React.memo(Pagination)

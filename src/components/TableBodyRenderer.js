@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function TableBodyRenderer({ freshData,changeIdForCoinDetail }) {
   const formatter = new Intl.NumberFormat("en-US", {
@@ -9,7 +10,7 @@ function TableBodyRenderer({ freshData,changeIdForCoinDetail }) {
     return (
       <tr key={index}>
         <td>{row.cmc_rank}</td>
-        <td onClick={() => changeIdForCoinDetail(row.id)}>{row.name}</td>
+        <td onClick={() => changeIdForCoinDetail(row.id)}><Link to={`/${row.name}`}>{row.name}</Link></td>
         <td>{formatter.format(row.quote.USD.market_cap)}</td>
         <td>${row.quote.USD.price.toFixed(4)}</td>
         <td>{formatter.format(row.quote.USD.volume_24h.toFixed(2))}</td>

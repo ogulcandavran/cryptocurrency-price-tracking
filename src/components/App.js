@@ -24,11 +24,11 @@ function App(props) {
     const { whyDidYouUpdate } = require("why-did-you-update");
     whyDidYouUpdate(React);
   }
-  console.log(pageNumberForApiCall);
-  props.dummyDataCreator(dummy);
+  console.log(showCoinDetail);
+  /* props.dummyDataCreator(dummy); */
 
-  /* useEffect(() => {props.dummyDataCreator(pageNumberForApiCall)}, [pageNumberForApiCall])  */
-  /* useEffect(() => {if(showCoinDetail){ props.fetchCoinDetails(showCoinDetail)} }, [showCoinDetail])   */
+   useEffect(() => {props.dummyDataCreator(pageNumberForApiCall)}, [pageNumberForApiCall, props]) 
+   useEffect(() => {if(showCoinDetail){ props.fetchCoinDetails(showCoinDetail)} }, [props, showCoinDetail])   
 
   /* useEffect(() => {
     fetch(
@@ -43,19 +43,10 @@ function App(props) {
       .then(res => console.log(res));
   }, []);  
   */
-  if (!showCoinDetail) {
+  /* if (!showCoinDetail) {
     return (
       <div>
-        {/* <div>
-    <BrowserRouter>
-    <Route
-  path='/' exact
-  render={(props) => <Pagination  changePageNumberForApiCall={changePageNumberForApiCall}/>}
-/>
-<Route
-  path='/' exact
-  render={(props) => <Table  changeIdForCoinDetail={changeIdForCoinDetail}/>}
-/> */}
+       
         <Pagination changePageNumberForApiCall={changePageNumberForApiCall} />
         <Table changeIdForCoinDetail={changeIdForCoinDetail} />
       </div>
@@ -66,7 +57,28 @@ function App(props) {
         <CoinDetail showCoinDetail={showCoinDetail} />
       </div>
     );
-  }
+  } */
+
+  return (
+    <div>
+      <BrowserRouter>
+        <Route path="/" exact render={() => <Pagination  changePageNumberForApiCall={changePageNumberForApiCall}/>}/>
+        <Route path="/" exact render={() => <Table changeIdForCoinDetail={changeIdForCoinDetail}/>}/>
+        <Route path="/:id" render={(props) =>  <CoinDetail {...props} showCoinDetail={showCoinDetail} changeIdForCoinDetail={changeIdForCoinDetail}/>} />
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default connect(null, { dummyDataCreator, fetchCoinDetails })(App);
+
+ {/* <div>
+    <BrowserRouter>
+    <Route
+  path='/' exact
+  render={(props) => <Pagination  changePageNumberForApiCall={changePageNumberForApiCall}/>}
+/>
+<Route
+  path='/' exact
+  render={(props) => <Table  changeIdForCoinDetail={changeIdForCoinDetail}/>}
+/> */}
