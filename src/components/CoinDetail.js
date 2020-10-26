@@ -7,13 +7,13 @@ function CoinDetail({coinDetail, showCoinDetail}) {
   
   return (
     <div>
-     <Link to='/'>HOMEPAGEEEEEEEEEEEEEEEEEEEEEEEEE</Link> Geliyom
+     <Link to='/'>HOMEPAGE</Link> Loading
     </div>
   )
 } else {
   console.log(showCoinDetail)
   console.log(coinDetail)
-return <div>{coinDetail.data[showCoinDetail].name}   <Link to='/'>HOMEPAGEEEEEEEEEEEEEEEEEEEEEEEEE</Link></div>
+return <div>{coinDetail.data[showCoinDetail].name}   <Link to='/'>HOMEPAGE</Link></div>
 
 }
 }
