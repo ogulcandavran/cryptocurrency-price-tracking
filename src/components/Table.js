@@ -18,7 +18,7 @@ function Table({ dummyData, sortCoins, changeIdForCoinDetail  }) {
   }, [sortParam])
 
   if(Object.entries(dummyData).length === 0 && dummyData.constructor === Object){
-    return <div>Geliyom</div>
+    return <div>Loading</div>
   }else {
   return (
     <div style={{ width: "100%" }}>
